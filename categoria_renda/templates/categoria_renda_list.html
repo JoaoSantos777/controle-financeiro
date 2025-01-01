@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Categorias de Renda{% endblock %}
+
+{% block body %}
+<h2>Lista de Categorias de Renda</h2>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for categoria in object_list %}
+        <tr>
+            <td>{{ categoria.id }}</td>
+            <td>{{ categoria.nome }}</td>
+            <td>
+                <button type="button" class="btn btn-primary">
+                    <a href="{% url 'categoria-renda-update' categoria.id %}" style="text-decoration: none; color: white;">Editar</a>
+                </button>
+                <button type="button" class="btn btn-danger">
+                    <a href="{% url 'categoria-renda-delete' categoria.id %}" style="text-decoration: none; color: white;">Excluir</a>
+                </button>
+                
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">Nenhuma categoria encontrada.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<button type="button" class="btn btn-success">
+    <a href="{% url 'categoria-renda-create' %}" style="text-decoration: none; color: white;">Adicionar Categoria</a>
+</button> 
+
+{% endblock %}

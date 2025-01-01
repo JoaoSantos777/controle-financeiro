@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block body %}
+  <h2>Confirmar Exclusão</h2>
+  <p>Tem certeza de que deseja deletar a renda "{{ object.nome }}" com o valor de "R$ {{ object.valor }}" ?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Sim, deletar</button>
+  </form>
+  <a href="{% url 'renda-list' %}">Cancelar</a>
+{% endblock %}

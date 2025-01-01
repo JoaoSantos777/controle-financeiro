@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block body %}
+  <h2>Lista de Partidos</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Sigla</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for partido in object_list %}
+        <tr>
+          <td>{{ partido.nome }}</td>
+          <td>{{ partido }}</td>
+          <td>
+            <button type="button" class="btn btn-primary">
+              <a href="{% url 'partido-update' partido.pk %}" style="text-decoration: none; color: white;">Editar</a>
+            </button>
+            <button type="button" class="btn btn-danger">
+              <a href="{% url 'partido-delete' partido.pk %}" style="text-decoration: none; color: white;">Deletar</a>
+            </button>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <button type="button" class="btn btn-success">
+    <a href="{% url 'partido-create' %}" style="text-decoration: none; color: white;">Adicionar Novo Partido</a>
+  </button>
+{% endblock %}

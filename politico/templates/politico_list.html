@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h2>Lista de Políticos</h2>
+    </div>
+  </div>
+  <div class="col-12 col-md-12 col-xl-12">
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>CPF</th>
+          <th>CNPJ</th>
+          <th>Cargo</th>
+          <th>Partido</th>
+          <th>Partido sigla</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for politico in object_list %}
+        <tr>
+            <td>
+                <a href="{% url 'politico_detalhe' politico.pk %}" style="text-decoration: none;">{{ politico.nome }}</a>
+            </td>
+            <td>{{ politico.cpf }}</td>
+            <td>{{ politico.cnpj }}</td>
+            <td>{{ politico.cargo }}</td>
+            <td>{{ politico.partido.nome }}</td>
+            <td>{{ politico.partido.sigla }}</td>
+            <td>
+                <button type="button" class="btn btn-primary">
+                    <a href="{% url 'politico-update' politico.pk %}" style="text-decoration: none; color: white;" class="btn-link">Editar</a>
+                </button>
+                <button type="button" class="btn btn-danger">
+                    <a href="{% url 'politico-delete' politico.pk %}" style="text-decoration: none; color: white;" class="btn-link">Deletar</a>
+                </button>
+            </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  
+  <button type="button" class="btn btn-success">
+    <a href="{% url 'politico-create' %}" style="text-decoration: none; color: white;">Adicionar Novo Político</a>
+  </button>
+</div>
+{% endblock %}
