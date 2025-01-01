@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'testemunha',
     'renda',
     'categoria_renda',
+    'relatorios',
 ]
 
 MIDDLEWARE = [

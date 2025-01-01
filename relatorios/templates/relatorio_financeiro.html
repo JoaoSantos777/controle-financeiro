@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Relatório Financeiro{% endblock %}
+
+{% block body %}
+<h2>Relatório Financeiro</h2>
+
+<table>
+    <tr>
+        <th>Renda Total</th>
+        <td>R$ {{ renda_total|floatformat:2 }}</td>
+    </tr>
+    <tr>
+        <th>Despesa Total</th>
+        <td>R$ {{ despesa_total|floatformat:2 }}</td>
+    </tr>
+    <tr>
+        <th>Saldo</th>
+        <td><strong>R$ {{ saldo|floatformat:2 }}</strong></td>
+    </tr>
+</table>
+
+<a href="{% url 'renda-list' %}">Ver Rendas</a> | 
+<a href="{% url 'despesa-list' %}">Ver Despesas</a>
+{% endblock %}
