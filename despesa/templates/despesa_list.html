@@ -8,6 +8,7 @@
     <thead>
         <tr>
             <th>ID</th>
+            <th>Nome</th>
             <th>Categoria</th>
             <th>Valor</th>
             <th>Data</th>
@@ -19,6 +20,7 @@
         {% for despesa in object_list %}
         <tr>
             <td>{{ despesa.id }}</td>
+            <td>{{ despesa.nome }}</td>
             <td>{{ despesa.categoria }}</td>
             <td>{{ despesa.valor }}</td>
             <td>{{ despesa.data }}</td>

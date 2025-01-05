@@ -22,14 +22,14 @@ class DespesaListView(ListView):
 class DespesaCreateView(CreateView):
     model = Despesa
     template_name = 'despesa_form.html'
-    fields = ['categoria', 'valor', 'data', 'descricao']
+    fields = ['nome', 'categoria', 'valor', 'data', 'descricao']
     success_url = reverse_lazy('despesa-list')
 
 
 class DespesaUpdateView(UpdateView):
     model = Despesa
     template_name = 'despesa_form.html'
-    fields = ['categoria', 'valor', 'data', 'descricao']
+    fields = ['nome', 'categoria', 'valor', 'data', 'descricao']
     success_url = reverse_lazy('despesa-list')
 
 
