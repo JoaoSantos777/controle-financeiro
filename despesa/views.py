@@ -7,6 +7,7 @@ from .forms import FiltroDespesaForm
 from politico.models import Politico
 from django.urls import reverse_lazy
 from django.db.models import Sum
+from .forms import DespesaForm
 
 
 # Despesa 
@@ -22,8 +23,18 @@ class DespesaListView(ListView):
 class DespesaCreateView(CreateView):
     model = Despesa
     template_name = 'despesa_form.html'
-    fields = ['nome', 'categoria', 'valor', 'data', 'descricao']
+    form_class = DespesaForm
     success_url = reverse_lazy('despesa-list')
+
+    def form_valid(self, form):
+        # Atualiza o valor disponível da renda quando a despesa for registrada
+        renda_utilizada = form.cleaned_data['renda_utilizada']
+        valor_despesa = form.cleaned_data['valor']
+
+        if renda_utilizada:
+            renda_utilizada.atualizar_valor_disponivel(valor_despesa)
+
+        return super().form_valid(form)
 
 
 class DespesaUpdateView(UpdateView):

@@ -3,23 +3,106 @@
 {% block title %}Relatório Financeiro{% endblock %}
 
 {% block body %}
-<h2>Relatório Financeiro</h2>
 
-<table>
-    <tr>
-        <th>Renda Total</th>
-        <td>R$ {{ renda_total|floatformat:2 }}</td>
-    </tr>
-    <tr>
-        <th>Despesa Total</th>
-        <td>R$ {{ despesa_total|floatformat:2 }}</td>
-    </tr>
-    <tr>
-        <th>Saldo</th>
-        <td><strong>R$ {{ saldo|floatformat:2 }}</strong></td>
-    </tr>
-</table>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório Financeiro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .relatorio {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .box {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .box h3 {
+            margin-bottom: 15px;
+        }
+
+        .box p {
+            font-size: 18px;
+        }
+
+        .positivo {
+            color: green;
+        }
+
+        .negativo {
+            color: red;
+        }
+    </style>
+</head>
+
+    <h1>Relatório Financeiro</h1>
+
+    <div class="relatorio">
+        <!-- Total de Rendas -->
+        <div class="box">
+            <h3>Total de Rendas</h3>
+            <p>R$ {{ renda_total|floatformat:2 }}</p>
+        </div>
+
+        <!-- Total de Despesas -->
+        <div class="box">
+            <h3>Total de Despesas</h3>
+            <p>R$ {{ despesa_total|floatformat:2 }}</p>
+        </div>
+
+        <!-- Saldo -->
+        <div class="box">
+            <h3>Saldo</h3>
+            <p class="{% if saldo >= 0 %}positivo{% else %}negativo{% endif %}">
+                R$ {{ saldo|floatformat:2 }}
+            </p>
+        </div>
+    </div>
+
+    <div class="relatorio">
+        <!-- Aqui você pode adicionar mais detalhes sobre as rendas ou despesas, se desejar -->
+        <div class="box">
+            <h3>Detalhes das Rendas</h3>
+            <ul>
+                {% for renda in rendas %}
+                <li>{{ renda.nome }} - R$ {{ renda.valor|floatformat:2 }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="box">
+            <h3>Detalhes das Despesas</h3>
+            <ul>
+                {% for despesa in despesas %}
+                <li>{{ despesa.nome }} - R$ {{ despesa.valor|floatformat:2 }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
 
 <a href="{% url 'renda-list' %}">Ver Rendas</a> | 
 <a href="{% url 'despesa-list' %}">Ver Despesas</a>
+
+
+
+
+<!-- relatorio_financeiro.html -->
+
+
+
 {% endblock %}

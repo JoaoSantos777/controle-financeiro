@@ -3,7 +3,6 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .models import Renda
 from django.db.models import Sum
 
-# Renda
 class RendaListView(ListView):
     model = Renda
     template_name = 'renda_list.html'
@@ -13,20 +12,17 @@ class RendaListView(ListView):
         context['soma_rendas'] = Renda.objects.aggregate(total=Sum('valor'))['total'] or 0
         return context
 
-
 class RendaCreateView(CreateView):
     model = Renda
     template_name = 'renda_form.html'
-    fields = ['nome', 'categoria', 'valor', 'data_recebimento']
+    fields = ['nome', 'categoria', 'valor', 'valor_disponivel', 'data_recebimento']
     success_url = reverse_lazy('renda-list')
-
 
 class RendaUpdateView(UpdateView):
     model = Renda
     template_name = 'renda_form.html'
-    fields = ['nome', 'categoria', 'valor', 'data_recebimento']
+    fields = ['nome', 'categoria', 'valor', 'valor_disponivel', 'data_recebimento']
     success_url = reverse_lazy('renda-list')
-
 
 class RendaDeleteView(DeleteView):
     model = Renda

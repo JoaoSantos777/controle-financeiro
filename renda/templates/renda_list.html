@@ -11,6 +11,7 @@
             <th>Nome</th>
             <th>Categoria</th>
             <th>Valor</th>
+            <th>Valor Disponível</th>
             <th>Data de Recebimento</th>
             <th>Ações</th>
         </tr>
@@ -22,6 +23,7 @@
             <td>{{ renda.nome }}</td>
             <td>{{ renda.categoria }}</td>
             <td>{{ renda.valor }}</td>
+            <td>R$ {{ renda.valor_disponivel }}</td>
             <td>{{ renda.data_recebimento }}</td>
             <td>
                 <button type="button" class="btn btn-primary">
