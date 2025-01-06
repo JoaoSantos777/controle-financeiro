@@ -1,5 +1,3 @@
-# views.py (app relatorios)
-
 from django.shortcuts import render
 from django.db.models import Sum
 from renda.models import Renda
@@ -13,7 +11,7 @@ def relatorio_financeiro(request):
     # Calculando o saldo
     saldo = renda_total - despesa_total
 
-    # Obtendo as rendas e despesas detalhadas
+    # Recuperando todas as rendas e despesas
     rendas = Renda.objects.all()
     despesas = Despesa.objects.all()
 

@@ -46,8 +46,18 @@
         .negativo {
             color: red;
         }
+
+        .detalhes-renda ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .detalhes-renda li {
+            margin-bottom: 5px;
+        }
     </style>
 </head>
+<body>
 
     <h1>Relatório Financeiro</h1>
 
@@ -74,25 +84,35 @@
     </div>
 
     <div class="relatorio">
-        <!-- Aqui você pode adicionar mais detalhes sobre as rendas ou despesas, se desejar -->
+        <!-- Detalhes das Rendas -->
         <div class="box">
             <h3>Detalhes das Rendas</h3>
-            <ul>
+            <div class="detalhes-renda">
                 {% for renda in rendas %}
-                <li>{{ renda.nome }} - R$ {{ renda.valor|floatformat:2 }}</li>
+                    <h4>{{ renda.nome }} = R$ {{ renda.valor|floatformat:2 }}</h4>
+                    <ul>
+                        {% for despesa in renda.despesas.all %}
+                            <li>- R$ {{ despesa.valor|floatformat:2 }} ({{ despesa.nome }})</li>
+                        {% empty %}
+                            <li>- Nenhuma despesa associada</li>
+                        {% endfor %}
+                    </ul>
                 {% endfor %}
-            </ul>
+            </div>
         </div>
 
+        <!-- Detalhes das Despesas -->
         <div class="box">
             <h3>Detalhes das Despesas</h3>
             <ul>
                 {% for despesa in despesas %}
-                <li>{{ despesa.nome }} - R$ {{ despesa.valor|floatformat:2 }}</li>
+                    <li>{{ despesa.nome }} - R$ {{ despesa.valor|floatformat:2 }} - Renda Utilizada: {{ despesa.renda_utilizada.nome }} (R$ {{ despesa.renda_utilizada.valor|floatformat:2 }})</li>
                 {% endfor %}
             </ul>
         </div>
     </div>
+
+
 
 
 <a href="{% url 'renda-list' %}">Ver Rendas</a> | 
