@@ -10,4 +10,5 @@ urlpatterns = [
     path('categoria-renda/', include('categoria_renda.urls')),
     path('renda/', include('renda.urls')),
     path('relatorios/', include('relatorios.urls')),
+    path('accounts/', include('accounts.urls')),
 ]

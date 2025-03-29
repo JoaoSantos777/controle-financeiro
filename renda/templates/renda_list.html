@@ -4,51 +4,53 @@
 
 {% block body %}
 <h2>Lista de Rendas</h2>
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Categoria</th>
-            <th>Valor</th>
-            <th>Valor Disponível</th>
-            <th>Data de Recebimento</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for renda in object_list %}
-        <tr>
-            <td>{{ renda.id }}</td>
-            <td>{{ renda.nome }}</td>
-            <td>{{ renda.categoria }}</td>
-            <td>{{ renda.valor }}</td>
-            <td>R$ {{ renda.valor_disponivel }}</td>
-            <td>{{ renda.data_recebimento }}</td>
-            <td>
-                <button type="button" class="btn btn-primary">
-                    <a href="{% url 'renda-update' renda.id %}" style="text-decoration: none; color: white;">Editar</a>
-                </button>
-                <button type="button" class="btn btn-danger" style="margin-top: 5px;">
-                    <a href="{% url 'renda-delete' renda.id %}" style="text-decoration: none; color: white;">Excluir</a>
-                </button>
-            </td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="5">Nenhuma renda encontrada.</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="2"><strong>Total:</strong></td>       
-            <td colspan="3"><strong>R$ {{ soma_rendas|floatformat:2 }}</strong></td>
-        </tr>
-    </tfoot>
-</table>
+<div class="table-responsive">
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Categoria</th>
+                <th>Valor</th>
+                <th>Valor Disponível</th>
+                <th>Data de Recebimento</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for renda in object_list %}
+            <tr>
+                <td>{{ renda.nome }}</td>
+                <td>{{ renda.categoria }}</td>
+                <td>{{ renda.valor }}</td>
+                <td>R$ {{ renda.valor_disponivel }}</td>
+                <td>{{ renda.data_recebimento }}</td>
+                <td>
+                    <button type="button" class="btn btn-primary">
+                        <a href="{% url 'renda-update' renda.id %}"
+                            style="text-decoration: none; color: white;">Editar</a>
+                    </button>
+                    <button type="button" class="btn btn-danger">
+                        <a href="{% url 'renda-delete' renda.id %}"
+                            style="text-decoration: none; color: white;">Excluir</a>
+                    </button>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">Nenhuma renda encontrada.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2"><strong>Total:</strong></td>
+                <td colspan="3"><strong>R$ {{ soma_rendas|floatformat:2 }}</strong></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
 
 <button type="button" class="btn btn-success">
-    <a href="{% url 'renda-create' %}" style="text-decoration: none; color: white;">Adicionar Renda</a>    
+    <a href="{% url 'renda-create' %}" style="text-decoration: none; color: white;">Adicionar Renda</a>
 </button>
 {% endblock %}

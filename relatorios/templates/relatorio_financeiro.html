@@ -9,13 +9,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relatório Financeiro</title>
     <style>
-        .positivo{
+        .positivo {
             color: green;
         }
 
-        .negativo{
+        .negativo {
             color: red;
         }
+
         .relatorio {
             font-family: Arial, sans-serif;
             margin: 20px;
@@ -62,45 +63,55 @@
 
         <!-- Resumo geral -->
         <div class="resumo-geral">
-            <p><strong>Renda Total:</strong> <j class="positivo">R$ {{ renda_total|floatformat:2 }}</j></p>
-            <p><strong>Despesa Total:</strong> <j class="negativo">R$ {{ despesa_total|floatformat:2 }}</j></p>
-            <p><strong>Saldo Geral:</strong><j class="{% if saldo >= 0 %}positivo{% else %}negativo{% endif %}"> R$ {{ saldo|floatformat:2 }}</j></p>
+            <p><strong>Renda Total:</strong>
+                <j class="positivo">R$ {{ renda_total|floatformat:2 }}</j>
+            </p>
+            <p><strong>Despesa Total:</strong>
+                <j class="negativo">R$ {{ despesa_total|floatformat:2 }}</j>
+            </p>
+            <p><strong>Saldo Geral:</strong>
+                <j class="{% if saldo >= 0 %}positivo{% else %}negativo{% endif %}"> R$ {{ saldo|floatformat:2 }}</j>
+            </p>
         </div>
 
         <!-- Detalhes das Rendas -->
         <h3>Detalhes das Rendas</h3>
-        <table class="tabela-rendas">
-            <thead>
-                <tr>
-                    <th>Renda</th>
-                    <th>Valor Total</th>
-                    <th>Total Gasto</th>
-                    <th>Saldo Restante</th>
-                    <th>Despesas Associadas</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in rendas_detalhes %}
-                <tr>
-                    <td>{{ item.renda.nome }}</td>
-                    <td>R$ {{ item.renda.valor|floatformat:2 }}</td>
-                    <td>R$ {{ item.total_despesas|floatformat:2 }}</td>
-                    <td>R$ {{ item.saldo_renda|floatformat:2 }}</td>
-                    <td>
-                        <ul>
-                            {% for despesa in item.despesas %}
-                            <li>R$ {{ despesa.valor|floatformat:2 }} - {{ despesa.nome }}</li>
-                            {% empty %}
-                            <li>Nenhuma despesa associada</li>
-                            {% endfor %}
-                        </ul>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <button class="btn btn-success"><a href="{% url 'renda-list' %}" style="color: white; text-decoration: none;">Ver Rendas</a></button>
-        <button class="btn btn-danger"><a href="{% url 'despesa-list' %}" style="color: white; text-decoration: none;">Ver Despesas</a></button>
+        <div class="table-responsive">
+            <table class="tabela-rendas">
+                <thead>
+                    <tr>
+                        <th>Renda</th>
+                        <th>Valor Total</th>
+                        <th>Total Gasto</th>
+                        <th>Saldo Restante</th>
+                        <th>Despesas Associadas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in rendas_detalhes %}
+                    <tr>
+                        <td>{{ item.renda.nome }}</td>
+                        <td>R$ {{ item.renda.valor|floatformat:2 }}</td>
+                        <td>R$ {{ item.total_despesas|floatformat:2 }}</td>
+                        <td>R$ {{ item.saldo_renda|floatformat:2 }}</td>
+                        <td>
+                            <ul>
+                                {% for despesa in item.despesas %}
+                                <li>R$ {{ despesa.valor|floatformat:2 }} - {{ despesa.nome }}</li>
+                                {% empty %}
+                                <li>Nenhuma despesa associada</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <button class="btn btn-success"><a href="{% url 'renda-list' %}"
+                style="color: white; text-decoration: none;">Ver Rendas</a></button>
+        <button class="btn btn-danger"><a href="{% url 'despesa-list' %}"
+                style="color: white; text-decoration: none;">Ver Despesas</a></button>
     </div>
 
 

@@ -4,50 +4,52 @@
 
 {% block body %}
 <h2>Lista de Despesas</h2>
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Categoria</th>
-            <th>Valor</th>
-            <th>Data</th>
-            <th>Descrição</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for despesa in object_list %}
-        <tr>
-            <td>{{ despesa.id }}</td>
-            <td>{{ despesa.nome }}</td>
-            <td>{{ despesa.categoria }}</td>
-            <td>{{ despesa.valor }}</td>
-            <td>{{ despesa.data }}</td>
-            <td>{{ despesa.descricao }}</td>
-            <td>
-                <button type="button" class="btn btn-primary">
-                    <a href="{% url 'despesa-update' despesa.id %}" style="text-decoration: none; color: white;">Editar</a>
-                </button>
-                <button type="button" class="btn btn-danger" style="margin-top: 5px;">
-                    <a href="{% url 'despesa-delete' despesa.id %}" style="text-decoration: none; color: white;">Excluir</a>
-                </button>
-            </td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="7">Nenhuma despesa encontrada.</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="2"><strong>Total:</strong></td>
-            <td colspan="3"><strong>R$ {{ soma_despesas|floatformat:2 }}</strong></td>
-        </tr>
-    </tfoot>
-</table>
+<div class="table-responsive">
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Categoria</th>
+                <th>Valor</th>
+                <th>Data</th>
+                <th>Descrição</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for despesa in object_list %}
+            <tr>
+                <td>{{ despesa.nome }}</td>
+                <td>{{ despesa.categoria }}</td>
+                <td>{{ despesa.valor }}</td>
+                <td>{{ despesa.data }}</td>
+                <td>{{ despesa.descricao }}</td>
+                <td>
+                    <button type="button" class="btn btn-primary">
+                        <a href="{% url 'despesa-update' despesa.id %}"
+                            style="text-decoration: none; color: white;">Editar</a>
+                    </button>
+                    <button type="button" class="btn btn-danger">
+                        <a href="{% url 'despesa-delete' despesa.id %}"
+                            style="text-decoration: none; color: white;">Excluir</a>
+                    </button>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7">Nenhuma despesa encontrada.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2"><strong>Total:</strong></td>
+                <td colspan="3"><strong>R$ {{ soma_despesas|floatformat:2 }}</strong></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
 <button type="button" class="btn btn-success">
-    <a href="{% url 'despesa-create' %}" style="text-decoration: none; color: white;">Adicionar Despesa</a>    
+    <a href="{% url 'despesa-create' %}" style="text-decoration: none; color: white;">Adicionar Despesa</a>
 </button>
 {% endblock %}

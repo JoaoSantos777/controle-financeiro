@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
-{% block title %}Adicionar/Editar Categoria de Renda{% endblock %}
+{% block title %}{% if form.instance.pk %}Editar{% else %}Criar{% endif %} Renda{% endblock %}
 
 {% block body %}
-<h2>{% if form.instance.pk %}Editar Categoria{% else %}Adicionar Categoria{% endif %}</h2>
+<h2>{% if form.instance.pk %}Editar Categoria de Renda{% else %}Adicionar Nova Categoria de Renda{% endif %}</h2>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}

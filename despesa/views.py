@@ -40,7 +40,7 @@ class DespesaCreateView(CreateView):
 class DespesaUpdateView(UpdateView):
     model = Despesa
     template_name = 'despesa_form.html'
-    fields = ['nome', 'categoria', 'valor', 'data', 'descricao']
+    fields = ['nome', 'categoria', 'valor', 'data', 'descricao', 'renda_utilizada']
     success_url = reverse_lazy('despesa-list')
 
 
