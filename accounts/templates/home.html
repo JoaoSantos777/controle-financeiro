@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <h2 class="card-title mb-4">Seja Bem-Vindo ao Controle Financeiro</h2>
+                    <p class="card-text fs-5">
+                        Aqui você pode gerenciar suas <strong>rendas</strong>, <strong>despesas</strong> e acompanhar relatórios financeiros de forma simples e prática.
+                    </p>
+                    <p class="mt-4">
+                        Utilize o menu acima para navegar pelas funcionalidades do sistema.
+                    </p>
+                    <a href="{% url 'relatorio-financeiro' %}" class="btn btn-primary mt-3">Ver Relatórios</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

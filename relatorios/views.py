@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.db.models import Sum
 from renda.models import Renda
@@ -34,3 +35,4 @@ def relatorio_financeiro(request):
         'rendas_detalhes': rendas_detalhes,
     }
     return render(request, 'relatorio_financeiro.html', context)
+

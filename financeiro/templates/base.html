@@ -94,7 +94,9 @@
 <body>
     <header>
         <div class="container">
-            <h1>Controle Financeiro</h1>
+            <a href="{% url 'home' %}" style="text-decoration: none; color: inherit;">
+                <h1>Controle Financeiro</h1>
+            </a>
             <nav>
                 <ul>
                     <!--    <li><a href="{% url 'politico-list' %}">Políticos</a></li>
@@ -107,7 +109,10 @@
                 </ul>
                 {% if user.is_authenticated %}
                 <p>Bem-vindo, {{ user.username }}!</p>
-                <a href="{% url 'logout' %}">Sair</a>
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-link">Sair</button>
+                </form>
                 {% else %}
                 <a href="{% url 'login' %}">Entrar</a>
                 <a href="{% url 'register' %}">Registrar</a>
