@@ -1,8 +1,10 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 from renda.models import Renda
 
 class Despesa(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     nome = models.CharField(max_length=100, verbose_name="Nome da Despesa", null=True, blank=True)
     politico = models.ForeignKey('politico.Politico', on_delete=models.CASCADE, null=True, blank=True)
     categoria = models.ForeignKey('categoria_despesa.CategoriaDespesa', on_delete=models.SET_NULL, null=True)
