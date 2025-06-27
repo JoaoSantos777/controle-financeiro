@@ -1,10 +1,16 @@
 from django import forms
 from .models import Despesa
 from categoria_despesa.models import CategoriaDespesa
+from renda.models import Renda
 
 class FiltroDespesaForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user')  # pega o user da view
+        super().__init__(*args, **kwargs)
+        self.fields['categoria'].queryset = CategoriaDespesa.objects.filter(user=user)
+
     categoria = forms.ModelChoiceField(
-        queryset=CategoriaDespesa.objects.all(),
+        queryset=CategoriaDespesa.objects.none(),  
         empty_label='Selecione uma categoria',
         required=False
     )
@@ -13,6 +19,12 @@ class DespesaForm(forms.ModelForm):
     class Meta:
         model = Despesa
         fields = ['nome', 'categoria', 'valor', 'data', 'descricao', 'renda_utilizada']
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user')  # pega o user da view
+        super().__init__(*args, **kwargs)
+        self.fields['categoria'].queryset = CategoriaDespesa.objects.filter(user=user)
+        self.fields['renda_utilizada'].queryset = Renda.objects.filter(user=user)
 
     def clean(self):
         cleaned_data = super().clean()

@@ -4,20 +4,21 @@ from django.db.models import Sum
 from renda.models import Renda
 from despesa.models import Despesa
 
-def relatorio_financeiro(request):
-    # Calculando a soma total de rendas e despesas
-    renda_total = Renda.objects.aggregate(total=Sum('valor'))['total'] or 0
-    despesa_total = Despesa.objects.aggregate(total=Sum('valor'))['total'] or 0
 
-    # Calculando o saldo geral
+def relatorio_financeiro(request):
+    # Filtra rendas e despesas pelo usuário logado
+    rendas = Renda.objects.filter(user=request.user)
+    despesas = Despesa.objects.filter(user=request.user)
+
+    # Soma total de rendas e despesas do usuário
+    renda_total = rendas.aggregate(total=Sum('valor'))['total'] or 0
+    despesa_total = despesas.aggregate(total=Sum('valor'))['total'] or 0
     saldo = renda_total - despesa_total
 
-    # Criando uma lista com detalhes das rendas
+    # Monta detalhes por renda, com despesas associadas
     rendas_detalhes = []
-    rendas = Renda.objects.all()
-
     for renda in rendas:
-        despesas_associadas = renda.despesas.all()
+        despesas_associadas = renda.despesas.filter(user=request.user)
         total_despesas = despesas_associadas.aggregate(total=Sum('valor'))['total'] or 0
         saldo_renda = renda.valor - total_despesas
         rendas_detalhes.append({
@@ -27,7 +28,6 @@ def relatorio_financeiro(request):
             'saldo_renda': saldo_renda,
         })
 
-    # Passando os valores para o template
     context = {
         'renda_total': renda_total,
         'despesa_total': despesa_total,
