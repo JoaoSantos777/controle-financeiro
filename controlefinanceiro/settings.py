@@ -59,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'controlefinanceiro.middleware.LoginRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'controlefinanceiro.urls'
