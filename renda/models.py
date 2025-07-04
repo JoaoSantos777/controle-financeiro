@@ -10,7 +10,7 @@ class Renda(models.Model):
     data_recebimento = models.DateField(verbose_name="Data de Recebimento")
 
     def __str__(self):
-        return f"{self.nome} - R$ {self.valor}"
+        return f"{self.nome} - R$ {self.valor_disponivel:.2f}"
 
     def atualizar_valor_disponivel(self, valor_despesa):
         """Atualiza o valor disponível da renda após uma despesa."""
